@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main_jigger.c
+SOURCEFILES_QUOTED_IF_SPACED=main_jigger.c belmo057_LCD.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main_jigger.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main_jigger.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main_jigger.o ${OBJECTDIR}/belmo057_LCD.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main_jigger.o.d ${OBJECTDIR}/belmo057_LCD.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main_jigger.o
+OBJECTFILES=${OBJECTDIR}/main_jigger.o ${OBJECTDIR}/belmo057_LCD.o
 
 # Source Files
-SOURCEFILES=main_jigger.c
+SOURCEFILES=main_jigger.c belmo057_LCD.c
 
 
 
@@ -101,12 +101,24 @@ ${OBJECTDIR}/main_jigger.o: main_jigger.c  .generated_files/flags/default/53676c
 	@${RM} ${OBJECTDIR}/main_jigger.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  main_jigger.c  -o ${OBJECTDIR}/main_jigger.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/main_jigger.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
+${OBJECTDIR}/belmo057_LCD.o: belmo057_LCD.c  .generated_files/flags/default/b3cadb70ed9a2033723878773e61cad97bb884d6 .generated_files/flags/default/4dfea4184ea9d925c7c2d2fec11ef6d40291c183
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/belmo057_LCD.o.d 
+	@${RM} ${OBJECTDIR}/belmo057_LCD.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  belmo057_LCD.c  -o ${OBJECTDIR}/belmo057_LCD.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/belmo057_LCD.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
 else
 ${OBJECTDIR}/main_jigger.o: main_jigger.c  .generated_files/flags/default/7a3685e2826080d88469c89c6ac3937d84b340b7 .generated_files/flags/default/4dfea4184ea9d925c7c2d2fec11ef6d40291c183
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main_jigger.o.d 
 	@${RM} ${OBJECTDIR}/main_jigger.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  main_jigger.c  -o ${OBJECTDIR}/main_jigger.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/main_jigger.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/belmo057_LCD.o: belmo057_LCD.c  .generated_files/flags/default/15dcaa21e4c24008c8075c64d32a6da1f5c27d06 .generated_files/flags/default/4dfea4184ea9d925c7c2d2fec11ef6d40291c183
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/belmo057_LCD.o.d 
+	@${RM} ${OBJECTDIR}/belmo057_LCD.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  belmo057_LCD.c  -o ${OBJECTDIR}/belmo057_LCD.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/belmo057_LCD.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 endif
 

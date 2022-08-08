@@ -37,19 +37,60 @@ void setup(void)
         // map output compare to pin B6:
     __builtin_write_OSCCONL(OSCCON & 0xbf);     // unlock PPS
     RPOR3bits.RP6R = 18;        // pin RP6 for output compare 1 = "18"
+    RPINR7bits.IC1R = 8;        // input capture for button on pin RB8
     __builtin_write_OSCCONL(OSCCON | 0X40);     // LOCK PPS
     
     OC1CON = 0;                 // reset oc1 bits;
     OC1CONbits.OCTSEL = 0b1;    // use timer 3;
     OC1CONbits.OCM = 0b110;     // pwm with w/o faults
     
-// SETUP TIMER 3
+        // SETUP TIMER 3
     T3CON = 0;                  // reset bits
-    T3CONbits.TCKPS = 0b01;     // 1:8 preset
+    T3CONbits.TCKPS = 0b01;     // 1:8 pre-scaler
     TMR3 = 0;
     PR3 = 40000 -1;             // 20ms overflow
     
     T3CONbits.TON = 1;          // start timer
+    
+    
+// SETUP BUTTON:
+    TRISBbits.TRISB8 = 1;       // input
+    CNPU2bits.CN22PUE = 1;      // pull up resistor
+    
+    T2CON = 0;
+    T2CONbits.TCKPS = 0b11;     // 1:256 pre-scale
+    TMR2 = 0;                   
+    PR2 = 62500 - 1;            // 1 second rollover
+    
+    T2CONbits.TON = 1;          // timer on
+    
+    
+    IC1CON = 0;               
+    IC1CONbits.ICTMR = 1;       // user timer 2 for capture source
+    IC1CONbits.ICM = 0b011;     // turn on and capture every rising edge
+    IFS0bits.IC1IF = 0;         // clear flag
+    IEC0bits.IC1IE = 1;         // enable IC1 interrupt
+}
+
+volatile unsigned long int debounce_time = 0;
+volatile unsigned long int state = 0;
+void __attribute__((interrupt, auto_psv)) _IC1Interrupt(void)
+{
+    _IC1IF = 0;
+
+    if(TMR3 > 5000)
+    {
+        TMR3 = 0;
+        if (state == 0)
+        {
+            state = 1;
+        }
+        else
+        {
+            state = 0;
+        }
+    }
+    
 }
 
 void setServo(int Val)
@@ -72,10 +113,14 @@ int main(void) {
 
     while(1)
     {
-        setServo(2000);
-        delay_ms(1000);
-        setServo(3000);
-        delay_ms(1000);
+        if (state == 1)
+        {
+            setServo(2000);
+            delay_ms(1000);
+            setServo(3000);
+            delay_ms(1000);
+        }
+        
     }
     return 0;
 }
